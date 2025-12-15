@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>الأداء الوظيفي - وزارة التعليم</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <style>
@@ -130,20 +129,54 @@ header nav ul li a:hover { background: rgba(13,168,166,0.2); color: var(--accent
 .faq-header { width:90%; margin:60px auto 30px; color:var(--accent); padding:30px; border-radius:50px; font-size:28px; font-weight:600; text-align:center; background: rgba(0,0,0,0.2); }
 .faq-container { width:90%; margin:auto; }
 
-.faq-list div {
+.faq-item {
   background: rgba(255,255,255,0.05);
-  padding: 12px;
-  margin-bottom: 8px;
-  border-radius: 10px;
+  border-radius: 12px;
+  margin-bottom: 12px;
   cursor: pointer;
-  transition: 0.3s;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
 }
-.faq-list div.open {
-  background: rgba(255,255,255,0.15);
+
+.faq-item:hover {
+  background: rgba(255,255,255,0.12);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
 }
-.faq-list .arrow {
-  float: left; 
-  font-weight: bold;
+
+.faq-question {
+  padding: 15px 20px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  background: linear-gradient(90deg, rgba(7,168,105,0.15), rgba(13,169,166,0.15));
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px 12px 0 0;
+}
+
+.faq-question .arrow {
+  display: inline-block;
+  margin-right: 12px;
+  transition: transform 0.3s ease;
+  color: var(--accent);
+}
+
+.faq-item.open .arrow {
+  transform: rotate(90deg);
+}
+
+.faq-answer {
+  padding: 0 20px;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #fff;
+  background: rgba(255,255,255,0.02);
+  border-radius: 0 0 12px 12px;
 }
 
 /* Footer */
@@ -164,6 +197,113 @@ footer img { height:32px; margin-bottom:8px; }
 }
 </style>
 </head>
+<!-- Chatbot -->
+<style>
+#chatbot {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 320px;
+  background: rgba(0,0,0,0.85);
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  display: none;
+  flex-direction: column;
+  z-index: 9999;
+}
+
+#chatbot header {
+  background: var(--main);
+  padding: 12px;
+  border-radius: 15px 15px 0 0;
+  font-weight: 600;
+  text-align: center;
+}
+
+#chatbot .messages {
+  padding: 10px;
+  height: 260px;
+  overflow-y: auto;
+  font-size: 14px;
+}
+
+.bot { color: var(--accent); margin-bottom: 6px; }
+.user { color: #fff; text-align: right; margin-bottom: 6px; }
+
+#chatbot input {
+  border: none;
+  padding: 10px;
+  width: 100%;
+  outline: none;
+  border-radius: 0 0 15px 15px;
+  font-family: "Tajawal", sans-serif;
+}
+
+#chatbot-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+</style>
+
+<button id="chatbot-btn">💬 اسألني</button>
+
+<div id="chatbot">
+  <header>مساعد الأداء الوظيفي</header>
+  <div class="messages" id="chatMessages">
+    <div class="bot">مرحباً 👋 كيف أقدر أساعدك؟</div>
+  </div>
+  <input type="text" id="chatInput" placeholder="اكتب سؤالك ثم Enter">
+</div>
+
+<script>
+const chatbotBtn = document.getElementById("chatbot-btn");
+const chatbot = document.getElementById("chatbot");
+const input = document.getElementById("chatInput");
+const messages = document.getElementById("chatMessages");
+
+const answers = {
+  "الأداء الوظيفي": "برنامج يهدف إلى تحسين كفاءة وجودة أداء الموظفين.",
+  "التقييم": "يتم التقييم سنوياً مع مراجعة نصف سنوية.",
+  "الكادر التعليمي": "يشمل المعلمين والمعلمات ومنسوبي التعليم.",
+  "الكادر الإداري": "يشمل جميع الموظفين الإداريين في وزارة التعليم.",
+  "التخطيط": "مرحلة تحديد الأهداف والمؤشرات قبل بدء التقييم.",
+  "المراجعة": "متابعة الأداء وقياس التقدم خلال العام."
+};
+
+chatbotBtn.onclick = () => {
+  chatbot.style.display = chatbot.style.display === "flex" ? "none" : "flex";
+  chatbot.style.flexDirection = "column";
+};
+
+input.addEventListener("keypress", function(e){
+  if(e.key === "Enter" && input.value.trim() !== ""){
+    const userText = input.value;
+    messages.innerHTML += `<div class="user">${userText}</div>`;
+
+    let reply = "عذراً، ما عندي إجابة واضحة. جرّب سؤال آخر.";
+    for(let key in answers){
+      if(userText.includes(key)){
+        reply = answers[key];
+      }
+    }
+
+    messages.innerHTML += `<div class="bot">${reply}</div>`;
+    messages.scrollTop = messages.scrollHeight;
+    input.value = "";
+  }
+});
+</script>
+
 <body>
 
 <header>
@@ -277,9 +417,9 @@ footer img { height:32px; margin-bottom:8px; }
   </div>
 </div>
 
+<!-- FAQ -->
 <div class="faq-header">الأسئلة الشائعة</div>
 <div class="faq-container" id="faq-root"></div>
-
 <div class="faq-footer">للمزيد من المعلومات: PM@moe.gov.sa</div>
 
 <footer>
@@ -287,9 +427,8 @@ footer img { height:32px; margin-bottom:8px; }
 <p>© وزارة التعليم - جميع الحقوق محفوظة 2025</p>
 </footer>
 
-<!-- JS الأساسي -->
+<!-- JS السلايدر -->
 <script>
-// Slider
 const slides = document.querySelector('.slides');
 const slideCount = document.querySelectorAll('.slide').length;
 const dots = document.querySelectorAll('.dot');
@@ -306,45 +445,51 @@ function showSlide(i){
     if(dots[index]) dots[index].classList.add('active');
 }
 showSlide(0);
-prevBtn.addEventListener('click', ()=>showSlide(index-1));
-nextBtn.addEventListener('click', ()=>showSlide(index+1));
-dots.forEach(dot => dot.addEventListener('click', e=>showSlide(parseInt(e.target.dataset.index))));
-setInterval(()=>showSlide(index+1),12000);
-</script>
+prevBtn.addEventListener('click',
+prevBtn.addEventListener('click', () => showSlide(index-1));
+nextBtn.addEventListener('click', () => showSlide(index+1));
+dots.forEach(dot => {
+    dot.addEventListener('click', () => showSlide(parseInt(dot.dataset.index)));
+});
 
-<!-- React للـ FAQ -->
-<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-<script type="text/babel">
-function FAQSection({ title, questions }) {
-  const [openIndex, setOpenIndex] = React.useState(null);
-  return (
-    <div style={{marginBottom:'30px'}}>
-      <div className="faq-title">{title}</div>
-      <div className="faq-list">
-        {questions.map((q, i) => (
-          <div key={i} className={openIndex === i ? "open" : ""} onClick={()=>setOpenIndex(openIndex===i?null:i)}>
-            {q} <span className="arrow">{open
-            {q} <span className="arrow">{openIndex === i ? "▲" : "▼"}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+// تبديل السلايدر تلقائياً كل 5 ثواني
+setInterval(() => showSlide(index+1), 5000);
 
+// FAQ
 const faqData = [
-  "كيف يمكنني الدخول على نظام تقييم الأداء الوظيفي؟",
-  "ما هي الخطوات الأساسية لإعداد خطة الأداء السنوية؟",
-  "كيف يتم احتساب نقاط الأداء للكادر التعليمي؟",
-  "ما هي المواعيد المهمة للتقييم السنوي؟",
-  "هل يمكن تعديل البيانات بعد الحفظ النهائي؟"
+    {question: "ما هي أهداف برنامج الأداء الوظيفي؟", answer: "يهدف إلى رفع مستوى الأداء وتحسين كفاءة الموظفين في جميع القطاعات التعليمية والإدارية."},
+    {question: "من يشملهم التقييم؟", answer: "يشمل جميع الكوادر التعليمية والإدارية في وزارة التعليم."},
+    {question: "هل التقييم سنوي أم نصف سنوي؟", answer: "يتم التقييم سنوياً مع مراجعة نصف سنوية لضمان متابعة الأداء."},
+    {question: "كيف يمكنني الوصول إلى الأدلة والإرشادات؟", answer: "يمكن الوصول إليها عبر الروابط الموجودة في بطاقات الأداء لكل كادر."}
 ];
 
-ReactDOM.createRoot(document.getElementById("faq-root")).render(
-  <FAQSection title="الأسئلة الشائعة حول الأداء الوظيفي" questions={faqData} />
-);
+const faqRoot = document.getElementById('faq-root');
+
+faqData.forEach(item => {
+    const faqItem = document.createElement('div');
+    faqItem.classList.add('faq-item');
+
+    const question = document.createElement('div');
+    question.classList.add('faq-question');
+    question.innerHTML = `<span class="arrow">&#9654;</span>${item.question}`;
+    faqItem.appendChild(question);
+
+    const answer = document.createElement('div');
+    answer.classList.add('faq-answer');
+    answer.textContent = item.answer;
+    faqItem.appendChild(answer);
+
+    question.addEventListener('click', () => {
+        faqItem.classList.toggle('open');
+        if(faqItem.classList.contains('open')){
+            answer.style.maxHeight = answer.scrollHeight + "px";
+        } else {
+            answer.style.maxHeight = null;
+        }
+    });
+
+    faqRoot.appendChild(faqItem);
+});
 </script>
 
 </body>
