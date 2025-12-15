@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الأداء الوظيفي - وزارة التعليم</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* إعدادات عامة */
+body {
+    font-family: "Tajawal", sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('background.jpg') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    scroll-behavior: smooth;
+}
+
+/* ألوان متغيرة */
+:root {
+    --main:#07a869;
+    --accent:#0da9a6;
+    --dark:#15445a;
+    --light:#c2c1c1;
+    --border:#c1b489;
+}
+
+/* شريط التنقل */
+header {
+    background: var(--main);
+    padding: 12px 0;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 92%;
+    margin: auto;
+    flex-wrap: wrap;
+}
+
+header nav img { height: 45px; margin-left: 12px; }
+.logo { color: #fff; font-size: 18px; font-weight: 600; }
+header nav ul { list-style: none; display: flex; gap: 14px; flex-wrap: wrap; margin:0; padding:0; }
+header nav ul li a {
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+header nav ul li a:hover { background: rgba(13,168,166,0.2); color: var(--accent); }
+
+/* سلايدر الصور */
+.slider { width: 90%; max-height: 350px; overflow: hidden; margin: 30px auto; border-radius: 20px; position: relative; box-shadow:0 8px 25px rgba(0,0,0,0.2);}
+.slides { display: flex; transition: transform 0.7s ease-in-out; }
+.slide { width: 100%; flex-shrink: 0; position: relative; }
+.slide img { width: 100%; height: 350px; object-fit: cover; display: block; border-radius: 20px; }
+.prev, .next { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: #fff; border: none; font-size: 28px; padding: 6px 12px; border-radius: 50%; cursor: pointer; z-index: 10; transition: 0.3s; }
+.prev:hover, .next:hover { background: rgba(0,0,0,0.6); }
+/* عكس الأزرار لتناسب RTL */
+.prev { left: 15px; } 
+.next { right: 15px; }
+
+.dots { position: absolute; bottom: 12px; width: 100%; text-align: center; }
+.dot { display:inline-block; width:12px; height:12px; margin:0 6px; background: rgba(255,255,255,0.6); border-radius:50%; cursor:pointer; transition:0.3s; }
+.dot.active { background: var(--accent); }
+
+/* العنوان الرئيسي */
+.main-title { text-align:center; margin-top:35px; font-size:34px; color: var(--accent); font-weight:700; }
+
+/* فيديو */
+.video-container { display:flex; justify-content:center; margin:35px 0; padding:0 20px; flex-wrap:wrap; }
+.video-card { position:relative; width:100%; max-width:450px; border-radius:20px; overflow:hidden; box-shadow:0 10px 25px rgba(23,22,22,0.15); transition:0.3s; margin-bottom:25px; }
+.video-card:hover { transform:scale(1.02); }
+.video-card video { width:100%; border-radius:20px; display:block; }
+.video-overlay { position:absolute; bottom:15px; left:50%; transform:translateX(-50%); display:flex; gap:15px; flex-wrap:wrap; justify-content:center; }
+.video-overlay button { background:var(--main); color:white; border:none; padding:8px 20px; border-radius:12px; cursor:pointer; font-weight:500; font-size:14px; box-shadow:0 4px 12px rgba(0,0,0,0.15); transition:0.3s; }
+.video-overlay button:hover { background:var(--accent); transform: translateY(-2px) scale(1.05); }
+
+/* بطاقات الأداء مصغرة */
+.section-container { width:90%; margin:40px auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:25px; }
+.section { background: rgba(255,255,255,0.1); border-radius:15px; padding:20px; text-align:center; box-shadow:0 8px 20px rgba(0,0,0,0.1); transition:0.3s; }
+.section:hover { transform: translateY(-5px); box-shadow:0 12px 30px rgba(0,0,0,0.2); }
+.section.small-card { height:200px; padding:0; position:relative; overflow:hidden; }
+.section.small-card .section-bg { width:100%; height:100%; background-size:cover; background-position:center; border-radius:15px; }
+.section.small-card h3 { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:18px; color:#fff; background: rgba(0,0,0,0.4); padding:5px 10px; border-radius:8px; }
+.section.small-card button { margin-top:10px; font-size:13px; padding:6px 14px; }
+
+/* Timeline */
+.new-wrap { width:90%; margin:50px auto; }
+.brand { background: var(--main); padding:20px; color:white; font-size:22px; text-align:center; border-radius:50px; margin-bottom:25px; font-weight:600; box-shadow:0 8px 20px rgba(0,0,0,0.15); }
+.panel { background: rgba(255,255,255,0.05); padding:30px; border-radius:20px; box-shadow:0 8px 25px rgba(0,0,0,0.1); }
+.timeline { position:relative; margin:30px 0; padding-left:20px; }
+.timeline-event {
+    position: relative;
+    margin-bottom: 30px;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-left: 4px solid var(--accent);
+}
+.timeline-event:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+.timeline-event h3 { font-size: 20px; margin-bottom: 5px; color: var(--accent); }
+.timeline-event p { font-size: 16px; margin: 0; color: #fff; font-weight: 500; }
+
+/* أزرار */
+.bottom { margin-top:25px; display:flex; gap:20px; flex-wrap:wrap; }
+.btn-card { flex:1 1 200px; padding:12px; font-size:15px; text-align:center; background: rgba(255,255,255,0.1); border:1px solid var(--border); border-radius:15px; font-weight:600; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.1); color:#fff; text-decoration:none; transition:0.3s; }
+.btn-card:hover { background: var(--accent); transform: translateY(-2px) scale(1.05); }
+
+/* FAQ */
+.faq-header { width:90%; margin:60px auto 30px; color:var(--accent); padding:30px; border-radius:50px; font-size:28px; font-weight:600; text-align:center; background: rgba(0,0,0,0.2); }
+.faq-container { width:90%; margin:auto; }
+
+.faq-list div {
+  background: rgba(255,255,255,0.05);
+  padding: 12px;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.faq-list div.open {
+  background: rgba(255,255,255,0.15);
+}
+.faq-list .arrow {
+  float: left; 
+  font-weight: bold;
+}
+
+/* Footer */
+.faq-footer { width:90%; margin:35px auto; font-size:19px; color: var(--accent); text-align:right; }
+footer { background: var(--main); color:white; text-align:center; padding:20px; margin-top:40px; font-size:16px; }
+footer img { height:32px; margin-bottom:8px; }
+
+/* Responsive */
+@media (max-width:768px){
+    .video-container{flex-direction:column; align-items:center;}
+    .video-card{width:90%;}
+    .section-container{grid-template-columns:1fr;}
+    header nav{flex-direction:column; gap:10px;}
+    header nav ul{justify-content:center;}
+}
+@media (max-width:480px){
+    .video-card video { height:auto; }
+}
+</style>
+</head>
+<body>
+
+<header>
+<nav>
+<img src="moe-logo.png" alt="شعار وزارة التعليم">
+<div class="logo">وزارة التعليم - الأداء الوظيفي</div>
+<ul>
+<li><a href="#">الرئيسية</a></li>
+<li><a href="#">المراجعة السنوية</a></li>
+<li><a href="#">التقييم</a></li>
+<li><a href="#">التخطيط</a></li>
+<li><a href="#">الأسئلة الشائعة</a></li>
+</ul>
+</nav>
+</header>
+
+<div class="slider">
+<div class="slides">
+<div class="slide"><img src="slide1.jpg" alt="صورة 1"></div>
+<div class="slide"><img src="slide2.jpg" alt="صورة 2"></div>
+<div class="slide"><img src="slide3.jpg" alt="صورة 3"></div>
+</div>
+<button class="prev">&#10094;</button>
+<button class="next">&#10095;</button>
+<div class="dots">
+<span class="dot" data-index="0"></span>
+<span class="dot" data-index="1"></span>
+<span class="dot" data-index="2"></span>
+</div>
+</div>
+
+<div class="main-title"> أداء نحو التميز 2025</div>
+
+<div class="video-container">
+<div class="video-card">
+<video controls title="فيديو توضيحي">
+<source src="video.mp4" type="video/mp4">
+</video>
+<div class="video-overlay">
+<button title="عرض الفيديو">شاهد الآن</button>
+<button title="التسجيل">التسجيل</button>
+</div>
+</div>
+</div>
+
+<!-- بطاقات الأداء مصغرة -->
+<div class="section-container">
+  <div class="section small-card">
+    <div class="section-bg" style="background-image:url('image1.jpg');"></div>
+    <h3>الأداء الوظيفي للكادر الإداري</h3>
+    <a href="#timeline-admin"><button>اطلع على المزيد</button></a>
+  </div>
+  <div class="section small-card">
+    <div class="section-bg" style="background-image:url('image2.jpg');"></div>
+    <h3>الأداء الوظيفي للكادر التعليمي</h3>
+    <a href="#timeline-edu"><button>اطلع على المزيد</button></a>
+  </div>
+</div>
+
+<!-- Timeline الإداري -->
+<div class="new-wrap" id="timeline-admin">
+  <div class="brand">الأداء الوظيفي للكادر الإداري</div>
+  <div class="panel">
+    <div class="timeline">
+      <div class="timeline-event" style="border-left:4px solid var(--main);">
+        <h3>📝 التخطيط</h3>
+        <p>📅 01 يونيو – 01 يوليو 2025</p>
+      </div>
+      <div class="timeline-event" style="border-left:4px solid var(--accent);">
+        <h3>🔍 المراجعة النصف سنوية</h3>
+        <p>📅 01 يونيو – 01 يوليو 2025</p>
+      </div>
+      <div class="timeline-event" style="border-left:4px solid var(--dark);">
+        <h3>📊 تقييم الأداء</h3>
+        <p>📅 01 يونيو – 01 يوليو 2025</p>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="btn-card">صندوق النماذج</div>
+      <a href="user-journey.html" class="btn-card">رحلة الأداء الوظيفي</a>
+      <div class="btn-card">الأدلة والإرشادات</div>
+      <div class="btn-card">المحتوى البصري</div>
+    </div>
+  </div>
+</div>
+
+<!-- Timeline التعليمي -->
+<div class="new-wrap" id="timeline-edu">
+  <div class="brand">الأداء الوظيفي للكادر التعليمي</div>
+  <div class="panel">
+    <div class="timeline">
+      <div class="timeline-event" style="border-left:4px solid var(--main);">
+        <h3>📝 التخطيط</h3>
+        <p>📅 01 يونيو – 01 يوليو 2025</p>
+      </div>
+      <div class="timeline-event" style="border-left:4px solid var(--accent);">
+        <h3>🔍 المراجعة النصف سنوية</h3>
+        <p>📅 01 يونيو – 01 يوليو 2025</p>
+      </div>
+      <div class="timeline-event" style="border-left:4px solid var(--dark);">
+        <h3>📊 تقييم الأداء</h3>
+        <p>📅 01 يونيو – 01 يوليو 2025</p>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="btn-card">صندوق النماذج التعليمية</div>
+      <a href="user-journey-edu.html" class="btn-card">رحلة الأداء التعليمي</a>
+      <div class="btn-card">الأدلة والإرشادات التعليمية</div>
+      <div class="btn-card">المحتوى البصري التعليمي</div>
+    </div>
+  </div>
+</div>
+
+<div class="faq-header">الأسئلة الشائعة</div>
+<div class="faq-container" id="faq-root"></div>
+
+<div class="faq-footer">للمزيد من المعلومات: PM@moe.gov.sa</div>
+
+<footer>
+<img src="moe-logo-footer.png" alt="شعار وزارة التعليم">
+<p>© وزارة التعليم - جميع الحقوق محفوظة 2025</p>
+</footer>
+
+<!-- JS الأساسي -->
+<script>
+// Slider
+const slides = document.querySelector('.slides');
+const slideCount = document.querySelectorAll('.slide').length;
+const dots = document.querySelectorAll('.dot');
+let index = 0;
+const prevBtn = document.querySelector('.prev');
+const nextBtn = document.querySelector('.next');
+
+function showSlide(i){
+    if(i<0) index = slideCount-1;
+    else if(i>=slideCount) index=0;
+    else index=i;
+    slides.style.transform = `translateX(-${index*100}%)`;
+    dots.forEach(dot => dot.classList.remove('active'));
+    if(dots[index]) dots[index].classList.add('active');
+}
+showSlide(0);
+prevBtn.addEventListener('click', ()=>showSlide(index-1));
+nextBtn.addEventListener('click', ()=>showSlide(index+1));
+dots.forEach(dot => dot.addEventListener('click', e=>showSlide(parseInt(e.target.dataset.index))));
+setInterval(()=>showSlide(index+1),12000);
+</script>
+
+<!-- React للـ FAQ -->
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script type="text/babel">
+function FAQSection({ title, questions }) {
+  const [openIndex, setOpenIndex] = React.useState(null);
+  return (
+    <div style={{marginBottom:'30px'}}>
+      <div className="faq-title">{title}</div>
+      <div className="faq-list">
+        {questions.map((q, i) => (
+          <div key={i} className={openIndex === i ? "open" : ""} onClick={()=>setOpenIndex(openIndex===i?null:i)}>
+            {q} <span className="arrow">{open
+            {q} <span className="arrow">{openIndex === i ? "▲" : "▼"}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+const faqData = [
+  "كيف يمكنني الدخول على نظام تقييم الأداء الوظيفي؟",
+  "ما هي الخطوات الأساسية لإعداد خطة الأداء السنوية؟",
+  "كيف يتم احتساب نقاط الأداء للكادر التعليمي؟",
+  "ما هي المواعيد المهمة للتقييم السنوي؟",
+  "هل يمكن تعديل البيانات بعد الحفظ النهائي؟"
+];
+
+ReactDOM.createRoot(document.getElementById("faq-root")).render(
+  <FAQSection title="الأسئلة الشائعة حول الأداء الوظيفي" questions={faqData} />
+);
+</script>
+
+</body>
+</html>
