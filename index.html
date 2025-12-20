@@ -11,9 +11,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
 
   <style>
-    /* =========================
-      THEME (محافظ على ثيمك) + تحسين راحة العين
-    ========================= */
     :root{
       --main:#2f9ea0;
       --accent:#1f7f86;
@@ -28,7 +25,6 @@
       --shadow:0 10px 25px rgba(0,0,0,0.10);
       --radius:14px;
 
-      /* مهم للسلايدر */
       --bg:none;
     }
 
@@ -40,16 +36,11 @@
       margin:0;
       padding:0;
       color:#fff;
-
-      /* أخف + أهدى (بدون fixed عشان الجوال) */
       background:
         linear-gradient(rgba(9,20,26,.30), rgba(9,20,26,.30)),
         url('background.jpg') no-repeat center/cover;
     }
 
-    /* =========================
-      HEADER
-    ========================= */
     header{
       background: var(--main);
       padding: 12px 0;
@@ -92,18 +83,12 @@
       color:#fff;
     }
 
-    /* =========================
-      WRAPPER
-    ========================= */
     .page-wrap{
       width:92%;
       max-width:1200px;
       margin: 18px auto 0;
     }
 
-    /* =========================
-      SLIDER (نفس فكرتك + أهدى)
-    ========================= */
     .moe-slider{
       width:100%;
       background: var(--card);
@@ -248,9 +233,6 @@
     }
     .moe-slider .dot.active{ background: var(--accent); }
 
-    /* =========================
-      TITLE
-    ========================= */
     .main-title{
       text-align:center;
       margin: 26px 0 16px;
@@ -260,9 +242,6 @@
       text-shadow: 0 2px 10px rgba(0,0,0,0.18);
     }
 
-    /* =========================
-      VIDEO
-    ========================= */
     .video-section{
       width:100%;
       background: var(--card);
@@ -346,9 +325,6 @@
       line-height: 1.7;
     }
 
-    /* =========================
-      Section cards
-    ========================= */
     .section-container{
       width:100%;
       margin:28px auto 0;
@@ -413,9 +389,6 @@
       font-weight:700;
     }
 
-    /* =========================
-      Timeline (مريح للعين: سطح فاتح)
-    ========================= */
     .new-wrap{ width:100%; margin:40px auto 0; }
 
     .brand{
@@ -464,7 +437,6 @@
       font-weight:600;
     }
 
-    /* Buttons */
     .bottom{ margin-top:16px; display:flex; gap:12px; flex-wrap:wrap; }
     .btn-card{
       flex:1 1 200px;
@@ -488,9 +460,6 @@
       transform: translateY(-2px);
     }
 
-    /* =========================
-      FAQ (مريح: فاتح)
-    ========================= */
     .faq-header{
       width:100%;
       margin:45px auto 18px;
@@ -514,9 +483,7 @@
       border: 1px solid rgba(0,0,0,0.06);
       color: var(--ink);
     }
-    .faq-item:hover{
-      transform: translateY(-2px);
-    }
+    .faq-item:hover{ transform: translateY(-2px); }
     .faq-question{
       padding: 14px 18px;
       font-weight: 700;
@@ -546,40 +513,122 @@
     .faq-answer p{ margin:12px 0 14px; }
 
     /* =========================
-      Chatbot (كما هو لكن أهدى)
+      Chatbot (محسن)
     ========================= */
     #chatbot{
       position: fixed;
       bottom: 20px;
       left: 20px;
-      width: 320px;
-      background: rgba(9,16,20,0.84);
+      width: 340px;
+      background: rgba(9,16,20,0.88);
       border-radius: 15px;
       box-shadow: 0 8px 22px rgba(0,0,0,0.35);
       display: none;
       flex-direction: column;
       z-index: 9999;
       overflow:hidden;
+      border: 1px solid rgba(255,255,255,0.10);
     }
     #chatbot header{
       background: var(--main);
       padding: 12px;
-      font-weight: 700;
+      font-weight: 800;
       text-align:center;
       color:#fff;
       position:static;
       box-shadow:none;
     }
-    #chatbot .messages{ padding: 10px; height: 260px; overflow-y:auto; font-size:14px; }
-    .bot{ color: #bfeeee; margin-bottom: 6px; }
-    .user{ color: #fff; text-align:right; margin-bottom: 6px; }
+    #chatbot .messages{
+      padding: 10px;
+      height: 280px;
+      overflow-y:auto;
+      font-size:14px;
+    }
+
+    .msg{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      margin-bottom:10px;
+    }
+    .msg .bubble{
+      padding:10px 10px;
+      border-radius:12px;
+      line-height:1.65;
+      max-width: 92%;
+      word-break: break-word;
+    }
+    .msg.bot .bubble{
+      background: rgba(47,158,160,0.14);
+      border: 1px solid rgba(47,158,160,0.26);
+      color:#d7ffff;
+      align-self:flex-start;
+    }
+    .msg.user .bubble{
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      color:#fff;
+      align-self:flex-end;
+      text-align:right;
+    }
+    .msg .meta{
+      font-size:11px;
+      color: rgba(255,255,255,0.65);
+    }
+    .msg.user .meta{ text-align:right; }
+
+    .chat-actions{
+      padding:10px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      border-top: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.06);
+    }
+    .chip{
+      font-family:"Tajawal",sans-serif;
+      border:none;
+      cursor:pointer;
+      padding:7px 10px;
+      border-radius:999px;
+      background: rgba(255,255,255,0.10);
+      color:#fff;
+      font-weight:700;
+      font-size:12px;
+      transition:.15s;
+    }
+    .chip:hover{ background: rgba(47,158,160,0.18); }
+
+    #chatbot .input-row{
+      display:flex;
+      gap:8px;
+      padding:10px;
+      border-top: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+    }
     #chatbot input{
+      flex:1;
       border:none;
       padding:10px 12px;
-      width:100%;
       outline:none;
+      border-radius:12px;
+      font-family:"Tajawal",sans-serif;
+      background: rgba(255,255,255,0.12);
+      color:#fff;
+    }
+    #chatbot input::placeholder{ color: rgba(255,255,255,0.70); }
+    #sendBtn{
+      border:none;
+      cursor:pointer;
+      padding:10px 12px;
+      border-radius:12px;
+      background: rgba(47,158,160,0.92);
+      color:#fff;
+      font-weight:800;
       font-family:"Tajawal",sans-serif;
     }
+    #sendBtn:hover{ filter: brightness(1.05); }
+
     #chatbot-btn{
       position: fixed;
       bottom: 20px;
@@ -589,13 +638,12 @@
       border:none;
       padding: 12px 18px;
       border-radius: 50px;
-      font-weight: 700;
+      font-weight: 800;
       cursor:pointer;
       z-index: 9999;
       box-shadow: 0 6px 18px rgba(0,0,0,0.25);
     }
 
-    /* Footer */
     footer{
       background: rgba(20,58,74,0.95);
       padding:28px 0;
@@ -604,7 +652,6 @@
       color: rgba(255,255,255,0.92);
     }
 
-    /* Responsive */
     @media (max-width: 992px){
       .moe-banner-content{ grid-template-columns: 1fr 1fr; }
       .moe-right{ order:-1; grid-column:1/-1; align-items:flex-end; }
@@ -615,6 +662,7 @@
       .video-row{ grid-template-columns:1fr; direction:rtl; }
       .video-thumb{ margin:18px; height:200px; }
       .video-info{ padding: 0 18px 18px; }
+      #chatbot{ width: 92vw; left: 4vw; }
     }
     @media (max-width: 560px){
       .moe-banner{ height:260px; }
@@ -829,12 +877,24 @@
 
 <!-- Chatbot -->
 <button id="chatbot-btn">تحدث مع المساعد</button>
-<div id="chatbot">
+
+<div id="chatbot" aria-label="مساعد الأداء الوظيفي">
   <header>مساعد الأداء الوظيفي</header>
-  <div class="messages">
-    <div class="bot">مرحباً! كيف يمكنني مساعدتك اليوم؟</div>
+
+  <div class="messages" id="chatMessages"></div>
+
+  <div class="chat-actions" id="chatActions">
+    <button class="chip" data-q="ما هو ميثاق الأداء؟">ميثاق الأداء</button>
+    <button class="chip" data-q="كم عدد الأهداف؟">عدد الأهداف</button>
+    <button class="chip" data-q="ما هي المراجعة النصف سنوية؟">المراجعة</button>
+    <button class="chip" data-q="كيف أتظلم؟">التظلم</button>
+    <button class="chip" data-q="ما هو سلم التقدير؟">سلم التقدير</button>
   </div>
-  <input type="text" placeholder="اكتب سؤالك هنا...">
+
+  <div class="input-row">
+    <input id="chatInput" type="text" placeholder="اكتب سؤالك هنا..." autocomplete="off">
+    <button id="sendBtn" type="button">إرسال</button>
+  </div>
 </div>
 
 <footer>
@@ -843,7 +903,7 @@
 
 <script>
 /* =========================
-   Slider (RTL صحيح + أوتو + نقاط)
+   Slider
 ========================= */
 (function(){
   const slider = document.getElementById("moeSlider");
@@ -883,7 +943,7 @@
 })();
 
 /* =========================
-   Video (يشغل داخل المربع فقط)
+   Video
 ========================= */
 (function(){
   const thumb = document.getElementById("videoThumb");
@@ -922,30 +982,207 @@ document.querySelectorAll(".faq-item").forEach(item=>{
 });
 
 /* =========================
-   Chatbot
+   Chatbot Knowledge Base (إداري + تعليمي) + مطابقة ذكية
+========================= */
+
+/* نوع المستخدم داخل الشات */
+let userTrack = "عام"; // "إداري" | "تعليمي" | "عام"
+
+const FAQ_KB = [
+  // عام
+  { track:"عام", keys:["تسجيل الدخول","اسجل الدخول","الدخول","login"], answer:"يمكنك تسجيل الدخول باستخدام حساب وزارة التعليم الخاص بك، ومن ثم الوصول إلى لوحة الأداء الوظيفي." },
+  { track:"عام", keys:["رفع الملفات","ارفع ملف","تحميل ملف","المرفقات","الشواهد"], answer:"يمكن رفع الملفات من خلال قسم «صندوق النماذج»، مع الالتزام بصيغ الملفات المسموح بها." },
+
+  // إداري
+  { track:"إداري", keys:["ميثاق","ميثاق الأداء","ميثاق الأداء الوظيفي","ما هو ميثاق"], answer:"ميثاق الأداء الوظيفي يطبق على الموظفين الحكوميين (شاغلي الوظائف الإدارية) من المرتبة الأولى إلى الخامسة عشر، والمستخدمين، وبند الأجور، والمتعاقدين." },
+  { track:"إداري", keys:["السنة","السنة الميلادية","التقويم","ينتهي"], answer:"يتم تطبيق إدارة الأداء الوظيفي خلال السنة الخاضعة لتقويم الأداء، ويكون انتهاؤها مع نهاية السنة الميلادية." },
+  { track:"إداري", keys:["عدد الأهداف","كم هدف","4","6","اربعة","ستة"], answer:"يتفق الموظف ومديره المباشر على عدد الأهداف بحيث يتراوح بين 4 إلى 6 أهداف." },
+  { track:"إداري", keys:["الأهداف الذكية","هدف ذكي","SMART"], answer:"الأهداف الذكية تكون: محددة، قابلة للقياس، قابلة للتطبيق، واقعية، ومحددة بإطار زمني." },
+  { track:"إداري", keys:["الوزن النسبي","وزن الهدف","تحديد الوزن"], answer:"يتم تحديد الوزن النسبي لكل هدف حسب أهمية الهدف مقارنة بالأهداف الأخرى." },
+  { track:"إداري", keys:["الناتج المستهدف","مستهدف","ضوابط المستهدف"], answer:"الناتج المستهدف هو تحديد كمي للأداء المتوقع خلال دورة الأداء، ويجب أن يكون قابلًا للقياس والتحقيق ويشكل نوعًا من التحدي." },
+  { track:"إداري", keys:["المراجعة النصف سنوية","نصف سنوية","المراجعة"], answer:"المراجعة النصف سنوية هي ممارسة دورية بين المدير المباشر والموظف لمراجعة وتقييم الأهداف والجدارات، لمعرفة مستوى الأداء وتصحيح المسار قبل انتهاء فترة التقييم." },
+  { track:"إداري", keys:["تحديث الأهداف","تعديل الأهداف","هل يمكن تعديل"], answer:"يمكن تحديث الأهداف بعد التنسيق مع المدير المباشر وذلك بعد انتهاء النصف الأول من دورة الأداء خلال فترة المراجعة النصف سنوية." },
+  { track:"إداري", keys:["الاطلاع على الميثاق","اشوف الميثاق","نظام فارس","الخدمة الذاتية"], answer:"يمكن الاطلاع على ميثاق الأداء الوظيفي في نظام فارس عبر: الخدمة الذاتية للموظف > الأداء الوظيفي > إعداد ميثاق الأداء الوظيفي > الاطلاع على نموذج الميثاق." },
+  { track:"إداري", keys:["احتساب","كيف يتم احتساب","حساب التقييم","تقييم الأداء"], answer:"يُحسب التقييم عبر: إجمالي التقدير الموزون للأهداف + إجمالي التقدير الموزون للجدارات، ثم ضرب كلٍ منهما في الأهمية النسبية (الأهداف 50% والجدارات 50%) ثم جمعهما." },
+  { track:"إداري", keys:["من يقيم","المدير المباشر","مين يقيم","صاحب الصلاحية"], answer:"المدير المباشر هو المسؤول عن تقييم الموظف الذي يعمل تحت إدارته وفق نموذج ميثاق الأداء الوظيفي." },
+  { track:"إداري", keys:["سلم التقدير","درجات التقدير","مثالي","تخطى التوقعات","وافق التوقعات","يحتاج","غير مرضي"], answer:"درجات التقدير العام: 5 مثالي، 4 تخطى التوقعات، 3 وافق التوقعات، 2 يحتاج إلى تطوير، 1 غير مرضي." },
+  { track:"إداري", keys:["التظلم","اعتراض","أعترض","كيف أتظلم"], answer:"يمكن التظلم على نتيجة تقييم الأداء الوظيفي عبر نظام فارس، وهي القناة الرسمية لاستقبال التظلمات." },
+
+  // تعليمي
+  { track:"تعليمي", keys:["دورة الأداء","مراحل دورة الأداء","مرحلة التخطيط","مرحلة التقييم","مراحل"], answer:"دورة أداء شاغلي الوظائف التعليمية تمر بثلاث مراحل: التخطيط، المراجعة النصف سنوية، ثم التقييم (مع مراعاة الإجازات الرسمية)." },
+  { track:"تعليمي", keys:["قنوات التواصل","الإعلان عن موعد","كيف نعرف الموعد","متى يبدأ"], answer:"يتم الإعلان عن مواعيد كل مرحلة عبر الموقع الرسمي لوزارة التعليم، ومنصاتها الرسمية، بالإضافة لقنوات المدرسة والبريد الإلكتروني الوزاري." },
+  { track:"تعليمي", keys:["نماذج التقييم","وش نماذج","ما هي النماذج"], answer:"توجد نماذج تقييم متعددة بحسب الفئة (مثل: معلم التعليم العام، معلم نشاط، معلمة رياض أطفال، وكيل/مدير مدرسة، محضر مختبر، مشرف تربوي… إلخ)." },
+  { track:"تعليمي", keys:["وظيفة إشرافية","غير إشرافية","الوظائف الإشرافية"], answer:"الوظيفة الإشرافية تجمع بين المسؤوليات التشغيلية والقيادية/الإشرافية، بينما غير الإشرافية تركز على المهام التشغيلية دون مسؤولية إشراف." },
+  { track:"تعليمي", keys:["عدد الأهداف","ميثاق الأداء","التشكيلات الإشرافية","أربعة","ستة","4","6"], answer:"في التشكيلات الإشرافية: عدد الأهداف في الميثاق يتراوح بين 4 إلى 6 أهداف حسب الاتفاق بين المشرف التربوي والمدير المباشر." },
+  { track:"تعليمي", keys:["سلم التقدير","مستويات القياس","مستويات الأداء","بحاجة لتطور"], answer:"سلم التقدير لشاغلي الوظائف التعليمية: 5 مثالي، 4 تخطى التوقعات، 3 وافق التوقعات، 2 بحاجة لتطور، 1 غير مرضي." }
+];
+
+function normalizeArabic(s){
+  return (s || "")
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/[أإآ]/g, "ا")
+    .replace(/ة/g, "ه")
+    .replace(/ى/g, "ي")
+    .replace(/ؤ/g, "و")
+    .replace(/ئ/g, "ي")
+    .replace(/ـ/g, "")
+    .replace(/[^\u0600-\u06FF0-9a-z\s]/g, " ")
+    .replace(/\s+/g, " ");
+}
+
+function scoreMatch(qNorm, keys){
+  // نقاط بسيطة: كل كلمة/عبارة مطابقة تزيد النقاط
+  let score = 0;
+  for(const k of keys){
+    const kn = normalizeArabic(k);
+    if(!kn) continue;
+    if(qNorm.includes(kn)) score += Math.max(2, Math.min(6, kn.length / 3));
+  }
+  return score;
+}
+
+function getFAQAnswer(userText){
+  const q = normalizeArabic(userText);
+  if(!q) return null;
+
+  // ابحث في نفس المسار + العام
+  const candidates = FAQ_KB.filter(x => x.track === userTrack || x.track === "عام");
+
+  let best = null;
+  let bestScore = 0;
+
+  for(const item of candidates){
+    const s = scoreMatch(q, item.keys);
+    if(s > bestScore){
+      bestScore = s;
+      best = item;
+    }
+  }
+
+  // حد أدنى بسيط عشان لا يجاوب غلط
+  if(best && bestScore >= 3) return best.answer;
+  return null;
+}
+
+/* =========================
+   Chatbot UI + إرسال
 ========================= */
 const chatbotBtn = document.getElementById("chatbot-btn");
 const chatbot = document.getElementById("chatbot");
-const input = chatbot.querySelector("input");
-const messages = chatbot.querySelector(".messages");
+const input = document.getElementById("chatInput");
+const messages = document.getElementById("chatMessages");
+const sendBtn = document.getElementById("sendBtn");
+const actions = document.getElementById("chatActions");
 
-chatbotBtn.addEventListener("click", ()=>{
-  chatbot.style.display = chatbot.style.display === "flex" ? "none" : "flex";
-});
-input.addEventListener("keypress", (e)=>{
-  if(e.key === "Enter" && input.value.trim() !== ""){
-    const userMsg = document.createElement("div");
-    userMsg.classList.add("user");
-    userMsg.textContent = input.value;
-    messages.appendChild(userMsg);
-    messages.scrollTop = messages.scrollHeight;
+function timeNow(){
+  const d = new Date();
+  return d.toLocaleTimeString("ar-SA", { hour:"2-digit", minute:"2-digit" });
+}
 
-    const botMsg = document.createElement("div");
-    botMsg.classList.add("bot");
-    botMsg.textContent = "شكراً لسؤالك، سيتم الرد قريباً!";
-    setTimeout(()=>{ messages.appendChild(botMsg); messages.scrollTop = messages.scrollHeight; }, 500);
-    input.value = "";
+function addMsg(type, text){
+  const wrap = document.createElement("div");
+  wrap.className = `msg ${type}`;
+
+  const bubble = document.createElement("div");
+  bubble.className = "bubble";
+  bubble.textContent = text;
+
+  const meta = document.createElement("div");
+  meta.className = "meta";
+  meta.textContent = timeNow();
+
+  wrap.appendChild(bubble);
+  wrap.appendChild(meta);
+  messages.appendChild(wrap);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function showWelcome(){
+  addMsg("bot", "مرحباً 👋 أنا مساعد الأداء الوظيفي. اختر مسارك أولاً عشان أعطيك إجابات أدق: إداري أو تعليمي.");
+
+  // أزرار اختيار المسار
+  const chooser = document.createElement("div");
+  chooser.className = "msg bot";
+
+  const bubble = document.createElement("div");
+  bubble.className = "bubble";
+
+  const btnAdmin = document.createElement("button");
+  btnAdmin.className = "chip";
+  btnAdmin.textContent = "إداري";
+  btnAdmin.addEventListener("click", ()=>{
+    userTrack = "إداري";
+    addMsg("bot", "تم اختيار المسار: إداري ✅");
+    addMsg("bot", "اسألني الآن مثل: (ميثاق الأداء / عدد الأهداف / المراجعة النصف سنوية / التظلم / سلم التقدير).");
+  });
+
+  const btnEdu = document.createElement("button");
+  btnEdu.className = "chip";
+  btnEdu.textContent = "تعليمي";
+  btnEdu.addEventListener("click", ()=>{
+    userTrack = "تعليمي";
+    addMsg("bot", "تم اختيار المسار: تعليمي ✅");
+    addMsg("bot", "اسألني الآن مثل: (مراحل دورة الأداء / نماذج التقييم / سلم التقدير / قنوات التواصل).");
+  });
+
+  const btnAny = document.createElement("button");
+  btnAny.className = "chip";
+  btnAny.textContent = "عام";
+  btnAny.addEventListener("click", ()=>{
+    userTrack = "عام";
+    addMsg("bot", "تمام — بنرد عليك إجابات عامة ✅");
+  });
+
+  bubble.appendChild(btnAdmin);
+  bubble.appendChild(btnEdu);
+  bubble.appendChild(btnAny);
+
+  chooser.appendChild(bubble);
+  messages.appendChild(chooser);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function handleSend(text){
+  const val = (text ?? input.value).trim();
+  if(!val) return;
+
+  addMsg("user", val);
+  input.value = "";
+
+  const answer = getFAQAnswer(val);
+  if(answer){
+    addMsg("bot", answer);
+    return;
   }
+
+  addMsg("bot", "ما فهمت سؤالك تمامًا. جرّب كلمات مثل: (ميثاق الأداء / عدد الأهداف / المراجعة / التظلم / سلم التقدير / نماذج التقييم).");
+}
+
+/* فتح/إغلاق الشات */
+let initiated = false;
+chatbotBtn.addEventListener("click", ()=>{
+  const willOpen = chatbot.style.display !== "flex";
+  chatbot.style.display = willOpen ? "flex" : "none";
+
+  if(willOpen && !initiated){
+    initiated = true;
+    showWelcome();
+  }
+});
+
+sendBtn.addEventListener("click", ()=> handleSend());
+
+input.addEventListener("keypress", (e)=>{
+  if(e.key === "Enter") handleSend();
+});
+
+/* الأزرار السريعة */
+actions.querySelectorAll(".chip").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    handleSend(btn.dataset.q || btn.textContent);
+  });
 });
 </script>
 
